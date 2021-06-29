@@ -25,7 +25,7 @@ namespace draftbot
         // Replace invalid characters with empty strings.
             try 
             {
-                return Regex.Replace(strIn, @"[^\w\d\.-]", "", RegexOptions.None, TimeSpan.FromSeconds(1.5));
+                return Regex.Replace(strIn, @"[^\s\w\d\.-]", "", RegexOptions.None, TimeSpan.FromSeconds(1.5));
             }
             catch (RegexMatchTimeoutException) 
             {
