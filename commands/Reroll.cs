@@ -13,7 +13,7 @@ namespace draftbot
 
         public string ShortDescription()
         {
-            return "Alias for $draft 4.";
+            return "Alias for #draft 4.";
         }
     }
 
