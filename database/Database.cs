@@ -20,7 +20,7 @@ namespace draftbot
 
             SQLiteCommand getAllSkillsCommand = _dbConnection.CreateCommand(); 
 
-            getAllSkillsCommand.CommandText = "SELECT Name, Active, Prerequisite, Description, Attribute1, Attribute2, Attribute3 FROM Skill";
+            getAllSkillsCommand.CommandText = "SELECT Name, Active, Prerequisite, Description, Attribute1, Attribute2, Attribute3, Attribute4 FROM Skill";
             using (SQLiteDataReader reader = getAllSkillsCommand.ExecuteReader())
             {
 
@@ -35,7 +35,7 @@ namespace draftbot
                         currentlyReadSkill.isActive = bool.Parse(reader["Active"].ToString());
                         currentlyReadSkill.prerequisite = reader.IsDBNull(reader.GetOrdinal("Prerequisite")) ? null : reader["Prerequisite"].ToString();
                         currentlyReadSkill.description = reader["Description"].ToString();
-                        for (int i = 1; i < 4; i++)
+                        for (int i = 1; i < 5; i++)
                         {
                             if (!reader.IsDBNull(reader.GetOrdinal("Attribute" + i)))
                             {
