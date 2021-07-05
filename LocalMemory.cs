@@ -7,16 +7,26 @@ namespace draftbot
     {
         private static HashSet<Skill> _allSkills;
         private static HashSet<Attribute> _allAttributes;
-        private static HashSet<Alias> _allAliases;
+        private static HashSet<SkillAlias> _allSkillAliases;
+        private static HashSet<Weapon> _allWeapons;
+        private static HashSet<WeaponAlias> _allWeaponAliases;
+
         private static Dictionary<string, Skill> _allSkillsDictionary; //use to reference specific skill entries by name
         private static Dictionary<string, Attribute> _allAttributesDictionary;
-        private static Dictionary<string, Alias> _allAliasesDictionary;
+        private static Dictionary<string, SkillAlias> _allSkillAliasesDictionary;
+        private static Dictionary<string, Weapon> _allWeaponsDictionary;
+        private static Dictionary<string, WeaponAlias> _allWeaponAliasesDictionary;
+
         private static object _allSkillsConcurrencyGuard = new object();
         private static object _allAttributesConcurrencyGuard = new object();
-        private static object _allAliasesConcurrencyGuard = new object();
+        private static object _allSkillAliasesConcurrencyGuard = new object();
+        private static object _allWeaponsConcurrencyGuard = new object();
+        private static object _allWeaponAliasesConcurrencyGuard = new object();
         private static object _skillsDictionaryConcurrencyGuard = new object();
         private static object _attrsDictionaryConcurrencyGuard = new object();
-        private static object _aliasesDictionaryConcurrencyGuard = new object();
+        private static object _skillAliasesDictionaryConcurrencyGuard = new object();
+        private static object _weaponsDictionaryConcurrencyGuard = new object();
+        private static object _weaponAliasesDictionaryConcurrencyGuard = new object();
 
         private Database _database;
 
@@ -93,37 +103,105 @@ namespace draftbot
             }
         }
 
-        public Dictionary<string, Alias> allAliasesDictionary
+        public Dictionary<string, SkillAlias> allSkillAliasesDictionary
         {
             get
             {
-                lock(_aliasesDictionaryConcurrencyGuard)
+                lock(_skillAliasesDictionaryConcurrencyGuard)
                 {
-                    if(_allAliasesDictionary == null)
+                    if(_allSkillAliasesDictionary == null)
                     {
-                        _allAliasesDictionary = new Dictionary<string, Alias>(StringComparer.OrdinalIgnoreCase);
-                        foreach (Alias alias in allAliases)
+                        _allSkillAliasesDictionary = new Dictionary<string, SkillAlias>(StringComparer.OrdinalIgnoreCase);
+                        foreach (SkillAlias skillAlias in allSkillAliases)
                         {
-                            _allAliasesDictionary.Add(alias.aliasName, alias);
+                            _allSkillAliasesDictionary.Add(skillAlias.aliasName, skillAlias);
                         }
                     }
                 }
-                return _allAliasesDictionary;
+                return _allSkillAliasesDictionary;
             }
         }
 
-        public HashSet<Alias> allAliases
+        public HashSet<SkillAlias> allSkillAliases
         {
             get
             {
-                lock(_allAliasesConcurrencyGuard)
+                lock(_allSkillAliasesConcurrencyGuard)
                 {
-                    if(_allAliases == null)
+                    if(_allSkillAliases == null)
                     {
-                        _allAliases = _database.GetAllAliases();
+                        _allSkillAliases = _database.GetAllSkillAliases();
                     }
                 }
-                return _allAliases;
+                return _allSkillAliases;
+            }
+        }
+
+        public Dictionary<string, Weapon> allWeaponsDictionary
+        {
+            get
+            {
+                lock(_weaponsDictionaryConcurrencyGuard)
+                {
+                    if(_allWeaponsDictionary == null)
+                    {
+                        _allWeaponsDictionary = new Dictionary<string, Weapon>(StringComparer.OrdinalIgnoreCase);
+                        foreach (Weapon weapon in allWeapons)
+                        {
+                            _allWeaponsDictionary.Add(weapon.name, weapon);
+                        }
+                    }
+                }
+                return _allWeaponsDictionary;
+            }
+        }
+
+        public HashSet<Weapon> allWeapons
+        {
+            get
+            {
+                lock(_allWeaponsConcurrencyGuard)
+                {
+                    if(_allWeapons == null)
+                    {
+                        _allWeapons = _database.GetAllWeapons();
+                    }
+                }
+                return _allWeapons;
+            }
+        }
+
+        public Dictionary<string, WeaponAlias> allWeaponAliasesDictionary
+        {
+            get
+            {
+                lock(_weaponAliasesDictionaryConcurrencyGuard)
+                {
+                    if(_allWeaponAliasesDictionary == null)
+                    {
+                        _allWeaponAliasesDictionary = new Dictionary<string, WeaponAlias>(StringComparer.OrdinalIgnoreCase);
+                        foreach (WeaponAlias weaponAlias in allWeaponAliases)
+                        {
+                            _allWeaponAliasesDictionary.Add(weaponAlias.aliasName, weaponAlias);
+                        }
+                    }
+                }
+                return _allWeaponAliasesDictionary;
+            }
+        }
+
+        public HashSet<WeaponAlias> allWeaponAliases
+        {
+            get
+            {
+                lock(_allWeaponAliasesConcurrencyGuard)
+                {
+                    if(_allWeaponAliases == null)
+                    {
+                        _allWeaponAliases = _database.GetAllWeaponAliases();
+                    }
+                }
+                return _allWeaponAliases;
             }
         }
 

@@ -3,7 +3,7 @@ using Discord.WebSocket;
 
 namespace draftbot
 {
-    class Desc : Command
+    class DescSkill : Command
     {
 
         public string Execute(Database database, SocketUser user, string state, string param)
@@ -15,7 +15,7 @@ namespace draftbot
 
             LocalMemoryWrapper localMemory = new LocalMemoryWrapper(database);
             Skill foundSkill = new Skill();
-            Alias foundAlias = new Alias();
+            SkillAlias foundAlias = new SkillAlias();
 
             if (localMemory.allSkillsDictionary.TryGetValue(param, out foundSkill))
             {
@@ -23,11 +23,11 @@ namespace draftbot
             }
             else
             {
-                if (localMemory.allAliasesDictionary.TryGetValue(param, out foundAlias))
+                if (localMemory.allSkillAliasesDictionary.TryGetValue(param, out foundAlias))
                 {
-                    if (localMemory.allSkillsDictionary.TryGetValue(localMemory.allAliasesDictionary[param].skillName, out foundSkill))
+                    if (localMemory.allSkillsDictionary.TryGetValue(localMemory.allSkillAliasesDictionary[param].skillName, out foundSkill))
                     {
-                        return BuildString(localMemory.allAliasesDictionary[param].skillName, localMemory);
+                        return BuildString(localMemory.allSkillAliasesDictionary[param].skillName, localMemory);
                     }
                 }
             }

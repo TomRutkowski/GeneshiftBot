@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace draftbot
 {
-    class Alias
+    class SkillAlias
     {
 
         public string aliasName;
