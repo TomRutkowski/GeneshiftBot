@@ -27,7 +27,7 @@ namespace draftbot
         public string CreateUser(string userId, string userName)
         {
             SQLiteCommand createUserCommand = new SQLiteCommand(_dbConnection);
-            string remindString = "Hi " + userName + "! I just created space for your user in the database. Type $new to start a new draft. Type $help to list commands.\n";
+            string remindString = "Hi " + userName + "! I just created space for your user in the database. Type #new to start a new draft. Type #help to list commands.\n";
             createUserCommand.CommandText = "INSERT INTO User (UserId, State, RemindString) VALUES('" + userId + "', 'Start', '" + remindString +"')";
             createUserCommand.ExecuteNonQuery();
             return remindString;
